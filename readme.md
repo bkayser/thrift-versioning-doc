@@ -104,9 +104,9 @@ service.
 
 There are three different versions of this service:
 
-* V1: The first version
-* V2: The second version with changes that are source compatible with clients written with the V1 stubs
-* V3: The third version with additional changes that are binary compatible but not source compativle with V1 clients.
+* 1.0.0: The first version
+* 1.0.1: The second version with changes that are source compatible with clients written with the V1 stubs
+* 1.1.0: The third version with additional changes that are binary compatible but not source compativle with V1 clients.
 
 You can run a server daemon and a sample client with the [server runner](examples/server.rb) and 
 [client runner](examples/client.rb) ruby files.  Both these scripts take a single command line argument, the
@@ -126,13 +126,13 @@ Next generate the client stubs:
 Start up v3 of the server.  You can start up other versions of the service but the backward incompatibility scenarios
 are all relative to the latest version of the server.
 
-    ruby server.rb v3 &
+    ruby server.rb 1.1.0 &
 
 Now run each version of the client.
 
-    ruby client.rb v1
-    ruby client.rb v2
-    ruby client.rb v3
+    ruby client.rb 1.0.0
+    ruby client.rb 1.0.1
+    ruby client.rb 1.1.0
 
 Furthermore you can study the changes required to the client in order to upgrade to v3 of the stubs.  You'll find these
 changes described in the V3 module of [client.rb](examples/client.rb).

@@ -2,7 +2,7 @@
  * This interface has changes to version 1 which are both source and 
  * binary compatible, as noted below.
  */
-namespace * AIS
+namespace * V1
 
 struct Account {
   1: required i64 id,

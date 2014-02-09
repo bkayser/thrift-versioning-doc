@@ -2,7 +2,7 @@
  * This interface has changes to version 1 which are backward binary compatible
  * but not source compatible (the client code needs to be changed).
  */
-namespace * AIS
+namespace * V1
 
 // (1) Rename the struct from Account to AccountID
 struct AccountID {

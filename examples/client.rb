@@ -39,17 +39,40 @@ end
 class V1_0_0 < ClientBase
 
   def lookup
-    print "Invoke client lookup with argument 1: "
-    account = client.lookup 1, V1::Mode::PARTNER, true
+    print "Invoke account lookup with id 1001: "
+    account = client.lookup 1001, V1::Mode::PARTNER, true
     print "received account: #{account.inspect}\n"
+    print "Invoke account lookup with bad id, -1: "
+    begin
+      account = client.lookup -1, V1::Mode::PARTNER, "b*"
+      print "received account: #{account.inspect}\n"
+    rescue V1::InvalidAccountException => e
+      print "received exception: #{e}\n"
+    end
   end
 
   def update
-    account = V1::Account.new id:100, name:'Xerex', key: 'Foo'
-    print "Invoke client update with #{account.inspect}: "
+    account = new_account(1010)
+    print "Invoke account update with #{account.inspect}: "
     v = client.update(account)
     print "received #{v.inspect}\n"
+    begin
+      # (7) Raises exception when the id <= 0
+      print "Invoke account update with bad id, -1: "
+      account.id = -1
+      v = client.update(account)
+      print "received: #{v.inspect}\n"
+    rescue V1::InvalidAccountException => e
+      print "received exception: #{e}\n"
+    end
   end
+
+  private
+
+  def new_account(id)
+    V1::Account.new id: id, name:'Xerex', key: 'Foo'
+  end
+
 end
 
 
@@ -59,7 +82,7 @@ class V1_0_1 < V1_0_0
 
 end
 
-class V1_1_0 < ClientBase
+class V1_1_0 < V1_0_1
 
   # Changes are needed to the client source in order to upgrade to the V3
   # generated stubs, enumerated below.
@@ -68,17 +91,18 @@ class V1_1_0 < ClientBase
     print "Invoke client lookup with argument 1: "
     # (1) Need to add new argument to lookup call
     # (2) Removed active argument from call
-    account = client.lookup 1, V1::Mode::PARTNER, "a*"
+    # (3) Changed order of arguments in lookup
+    # (4) Removed exception from signature.
+    account = client.lookup V1::Mode::PARTNER, 1001, "aaaa"
     print "received account: #{account.inspect}\n"
   end
 
-  def update
-    # (3) Remove key field and add parent field
-    # (4) Renamed Account struct to AccountID
-    account = V1::AccountID.new id:100, name:'Xerex', parent: 100
-    print "Invoke client update with #{account.inspect}: "
-    v = client.update(account)
-    print "received #{v.inspect}\n"
+  private
+
+  def new_account(id)
+    # (5) Remove key field and add parent field
+    # (6) Renamed Account struct to AccountID
+    account = V1::AccountID.new id: id, name:'Xerex', parent: 100
   end
 
 end
@@ -101,7 +125,7 @@ end
 
 
 
-transport = Thrift::HTTPClientTransport.new("http://localhost:3000/#{major_version}/accounts")
+transport = Thrift::HTTPClientTransport.new("http://localhost:9292/#{major_version}/accounts")
 server_proxy_class = Module.const_get(major_version)::Accounts::Client
 server = server_proxy_class.new(Thrift::BinaryProtocol.new(transport))
 

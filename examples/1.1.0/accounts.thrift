@@ -28,6 +28,6 @@ service Accounts {
   //     index 4, skipping 3 which was allocated to "active"
   // (5) Change position of first and second arguments
   AccountID lookup(2:Mode mode, 1:i64 id, 4:string name="*"),
-  AccountID update(1:AccountID account)
+  AccountID update(1:AccountID account) throws (1:InvalidAccountException ae)
 }
 

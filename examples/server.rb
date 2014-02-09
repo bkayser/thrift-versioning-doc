@@ -18,6 +18,7 @@ module Server
       return V1::AccountID.new name: name, id: id, parent: 1
     end
     def update account
+      raise V1::InvalidAccountException, "Invalid id: #{account.id}" if (account.id <= 0)
       return account
     end
   end

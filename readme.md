@@ -75,8 +75,8 @@ Note that some of these may not hold true for java clients.
 
 ### Binary Compatible Changes
 
-The following changes to a service interface will require clients update their code when
-updating to the latest service stubs.
+The following changes to a service interface will require clients
+update their code when updating to the latest service stubs.
 
 * Removing a field from a struct
 * Renaming a struct
@@ -87,31 +87,38 @@ updating to the latest service stubs.
 
 ### Binary Backward Incompatible Changes
 
-The following changes require all clients to update their stubs to the latest versions generated.
-Clients connecting with older versions of the stubs will get exceptions on their method invocations.
+The following changes require all clients to update their stubs to the
+latest versions generated.  Clients connecting with older versions of
+the stubs will get exceptions on their method invocations.
 
-* Removing or renaming an interface method
+* Removing or renaming a method
 * Removing a struct definition
-* Removing a field from a struct
-* Renaming a method
 * Changing the declared type of a return value, or changing it to void
 * Adding an exception to a method signature
 
 ## Running the Examples
 
-You can see examples of the compatible changes listed above in a sample thrift service called the `AIS::Accounts`
-service.  
+You can see examples of the compatible changes listed above in a
+sample thrift service called the `AIS::Accounts` service.
 
 There are three different versions of this service:
 
 * 1.0.0: The first version
 * 1.0.1: The second version with changes that are source compatible with clients written with the V1 stubs
 * 1.1.0: The third version with additional changes that are binary compatible but not source compativle with V1 clients.
+* 2.0.0: Major version which is not compatible with 1.* clients.
 
-You can run a server daemon and a sample client with the [server runner](examples/server.rb) and 
-[client runner](examples/client.rb) ruby files.  Both these scripts take a single command line argument, the
-version of the interface to use: v1, v2, or v3.  To demonstrate binary compatibility, you can run each of the client
-versions against the server v3 version.  
+You can run the [server](examples/server.rb) as a rack application.
+The server implements versions 1.1.0 and 2.0.0 as distinct rack
+applications on separate endpoints.
+
+You can a sample client with the [client runner](examples/client.rb)
+ruby script.  It take a single command line argument, the version of
+the interface to use: 1.0.0, 1.0.1, 1.1.0, or 2.0.0.  To demonstrate
+binary compatibility, the 1.* versions of the client all connect to
+the local 1.1.0 server stood up by the server rack app.  When you run
+the 2.0.0 version of the client it connects to the 2.0.0 endpoint in
+the rack app.
 
 First install the required gems:
 
@@ -123,20 +130,23 @@ Next generate the client stubs:
     cd examples
     ./gen.sh
 
-Start up v3 of the server.  You can start up other versions of the service but the backward incompatibility scenarios
-are all relative to the latest version of the server.
+Start up the server.  This instantiates server implementations of the 1.1.0 and 2.0.0 interfaces.
 
-    ruby server.rb 1.1.0 &
+    thin -R config.ru start
 
 Now run each version of the client.
 
     ruby client.rb 1.0.0
     ruby client.rb 1.0.1
     ruby client.rb 1.1.0
+    ruby client.rb 2.0.0
 
-Furthermore you can study the changes required to the client in order to upgrade to v3 of the stubs.  You'll find these
-changes described in the V3 module of [client.rb](examples/client.rb).
+In [client.rb](examples/client.rb) you can study the changes required
+in each of the versions of the client in order to upgrade the stubs
+for that version.
 
-So what's the point of runnable examples?  If you have a question about the effect of any particular kind of change
-on clients the best way to answer it is to actually try it out.  These examples all use ruby but you could verify
-some of the assumptions using clients written in other languages.
+So what's the point of runnable examples?  If you have a question
+about the effect of any particular kind of change on clients the best
+way to answer it is to actually try it out.  These examples all use
+ruby but you could verify some of the assumptions using clients
+written in other languages.

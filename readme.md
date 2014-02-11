@@ -151,9 +151,15 @@ latest versions generated.  Clients connecting with older versions of
 the stubs will get exceptions on their method invocations.
 
 * Removing or renaming a method
-* Removing a struct definition
+* Changing the type of an argument in a method
 * Changing the declared type of a return value, or changing it to void
 * Adding an exception to a method with a non-void return type
+
+Adding an exception to any method should really be considered to break
+backward compatibility, but an oddity of thrift's implementation is
+that if you throw an exception from the server that is not expected by
+the client, it will just be ignored, _but only if the method is
+declared void_.
 
 ## Running the Examples
 

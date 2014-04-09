@@ -1,5 +1,6 @@
 require 'thrift'
 # Load generated files
+$LOAD_PATH.unshift File.expand_path("..", __FILE__)
 $LOAD_PATH.unshift File.expand_path("../1.1.0/gen", __FILE__)
 $LOAD_PATH.unshift File.expand_path("../2.0.0/gen", __FILE__)
 

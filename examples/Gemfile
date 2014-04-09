@@ -1,0 +1,6 @@
+# A sample Gemfile
+source "https://rubygems.org"
+
+gem "thrift"
+gem "thin"
+gem "rack"

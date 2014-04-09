@@ -1,8 +1,10 @@
 /*
- * This interface has changes to version 1.0.0 which are both source and 
+ * This interface has changes to version 1.0.0 which are both source and
  * binary compatible, as noted below.
  */
-namespace * V1
+namespace rb BusinessServices.V1
+namespace java com.example.business.V1
+
 
 struct Account {
   1: required i64 id,

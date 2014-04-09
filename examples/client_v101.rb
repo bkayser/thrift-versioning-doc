@@ -1,6 +1,5 @@
 $LOAD_PATH.unshift "."
 require 'client_base'
-require 'thrift'
 
 $LOAD_PATH.unshift "1.0.1/gen"
 require "accounts_types.rb"
@@ -15,7 +14,7 @@ class V1_0_1 < V1_0_0
 end
 
 if __FILE__ == $0
-  client = V1_0_1.new(V1::Accounts::Client)
+  client = V1_0_1.new(BusinessServices::V1::Accounts::Client)
   client.run()
   puts "Success!"
 end

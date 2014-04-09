@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'bundler/setup'
 require 'thrift'
 # Load generated files
 $LOAD_PATH.unshift File.expand_path("..", __FILE__)
@@ -16,17 +18,17 @@ module Server
   class Version1
     def lookup mode, id, name
       puts "lookup: id:#{id} mode:#{mode} name:#{name}"
-      return V1::AccountID.new name: name, id: id, parent: 1
+      return BusinessServices::V1::AccountID.new name: name, id: id, parent: 1
     end
     def update account
-      raise V1::InvalidAccountException, "Invalid id: #{account.id}" if (account.id <= 0)
+      raise BusinessServices::V1::InvalidAccountException, "Invalid id: #{account.id}" if (account.id <= 0)
       return account
     end
   end
   class Version2
     def lookup mode, id, name
       puts "lookup: id:#{id} mode:#{mode} name:#{name}"
-      return V2::AccountID.new name: name, id: id, parent: 1
+      return BusinessServices::V2::AccountID.new name: name, id: id, parent: 1
     end
     def update_account account
       return account
@@ -34,8 +36,8 @@ module Server
   end
 end
 
-v1_processor = V1::Accounts::Processor.new(Server::Version1.new)
-v2_processor = V2::Accounts::Processor.new(Server::Version2.new)
+v1_processor = BusinessServices::V1::Accounts::Processor.new(Server::Version1.new)
+v2_processor = BusinessServices::V2::Accounts::Processor.new(Server::Version2.new)
 
 $v1_app = Thrift::ThinHTTPServer::RackApplication.for("/accounts", v1_processor, Thrift::BinaryProtocolFactory.new)
 $v2_app = Thrift::ThinHTTPServer::RackApplication.for("/accounts", v2_processor, Thrift::BinaryProtocolFactory.new)

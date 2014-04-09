@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'bundler/setup'
 require 'thrift'
 
 # This app will invoke several calls on the Accounts service.

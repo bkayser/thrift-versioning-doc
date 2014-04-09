@@ -1,6 +1,5 @@
 $LOAD_PATH.unshift "."
 require 'client_base'
-require 'thrift'
 
 $LOAD_PATH.unshift "1.1.0/gen"
 require "accounts_types.rb"
@@ -21,7 +20,7 @@ class V1_1_0 < V1_0_1
     # (2) Removed active argument from call
     # (3) Changed order of arguments in lookup
     # (4) Removed exception from signature.
-    account = client.lookup V1::Mode::PARTNER, 1001, "aaaa"
+    account = client.lookup BusinessServices::V1::Mode::PARTNER, 1001, "aaaa"
     print "received account: #{account.inspect}\n"
   end
 
@@ -30,13 +29,13 @@ class V1_1_0 < V1_0_1
   def new_account(id)
     # (5) Remove key field and add parent field
     # (6) Renamed Account struct to AccountID
-    account = V1::AccountID.new id: id, name:'Xerex', parent: 100
+    account = BusinessServices::V1::AccountID.new id: id, name:'Xerex', parent: 100
   end
 
 end
 
 if __FILE__ == $0
-  client = V1_1_0.new(V1::Accounts::Client)
+  client = V1_1_0.new(BusinessServices::V1::Accounts::Client)
   client.run()
   puts "Success!"
 end

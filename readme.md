@@ -137,14 +137,15 @@ the local 1.1.0 server stood up by the server rack app.  When you run
 the 2.0.0 version of the client it connects to the 2.0.0 endpoint in
 the rack app.
 
-First install the required gems:
+First install the thrift binaries using your platform installer (yum, brew, etc).
 
-    gem install thrift
-    gem install thin
+Then install your gems:
+    cd examples
+    gem install bundler
+    bundle install
 
 Next generate the service stubs:
 
-    cd examples
     ./gen.sh
 
 Start up the server.  This instantiates server implementations of the

@@ -43,7 +43,7 @@ upgrade their stubs immediately.  The new version of the service is
 considered *backward compatible* with the earlier generated stubs if
 the clients using the old service stubs can still connect to the
 service and invoke methods successfully.  More specifically, the new
-verison of the service is _binary backward compatibile_ with the
+version of the service is _binary backward compatibile_ with the
 earlier versions.
 
 ![Diagram of client with old version of stubs](images/client-server-different-versions.png)

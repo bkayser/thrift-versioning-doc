@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'thrift'
+require 'thrift/server/thin_http_server'
+
 # Load generated files
 $LOAD_PATH.unshift File.expand_path("..", __FILE__)
 $LOAD_PATH.unshift File.expand_path("../1.1.0/gen", __FILE__)

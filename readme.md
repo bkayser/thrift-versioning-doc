@@ -122,7 +122,7 @@ There are three different versions of this service:
 
 * 1.0.0: The first version
 * 1.0.1: The second version with changes that are source compatible with clients written with the V1 stubs
-* 1.1.0: The third version with additional changes that are binary compatible but not source compativle with V1 clients.
+* 1.1.0: The third version with additional changes that are binary compatible but not source compatible with V1 clients.
 * 2.0.0: Major version which is not compatible with 1.* clients.
 
 You can run the [server](examples/server.rb) as a rack application.

@@ -15,7 +15,7 @@ class V2_0_0 < ClientBase
   end
 
   def update
-    account = BusinessServices::V2::AccountID.new id:100, name:'Xerex', parent: 100
+    account = BusinessServices::V2::AccountID.new id:100, newname:'Xerex', parent: 100
     print "Invoke client update with #{account.inspect}: "
     v = client.update_account(account)
     print "received #{v.inspect}\n"

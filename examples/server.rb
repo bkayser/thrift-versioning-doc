@@ -19,8 +19,8 @@ require '2.0.0/gen/accounts.rb'
 module Server
   class Version1
     def lookup mode, id, name
-      puts "lookup: id:#{id} mode:#{mode} name:#{name}"
-      return BusinessServices::V1::AccountID.new name: name, id: id, parent: 1
+      puts "lookup: id:#{id} mode:#{mode} newname:#{name}"
+      return BusinessServices::V1::AccountID.new newname: name, id: id, parent: 1
     end
     def update account
       raise BusinessServices::V1::InvalidAccountException, "Invalid id: #{account.id}" if (account.id <= 0)
@@ -29,8 +29,8 @@ module Server
   end
   class Version2
     def lookup mode, id, name
-      puts "lookup: id:#{id} mode:#{mode} name:#{name}"
-      return BusinessServices::V2::AccountID.new name: name, id: id, parent: 1
+      puts "lookup: id:#{id} mode:#{mode} newname:#{name}"
+      return BusinessServices::V2::AccountID.new newname: name, id: id, parent: 1
     end
     def update_account account
       return account

@@ -7,7 +7,7 @@ namespace java com.example.business.V2
 
 struct AccountID {
   1: required i64 id,
-  2: string name,
+  2: string newname,
   4: i64 parent
 }
 

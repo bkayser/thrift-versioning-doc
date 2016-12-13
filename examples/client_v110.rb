@@ -29,7 +29,7 @@ class V1_1_0 < V1_0_1
   def new_account(id)
     # (5) Remove key field and add parent field
     # (6) Renamed Account struct to AccountID
-    account = BusinessServices::V1::AccountID.new id: id, name:'Xerex', parent: 100
+    account = BusinessServices::V1::AccountID.new id: id, newname:'Xerex', parent: 100
   end
 
 end

@@ -22,8 +22,10 @@ class ClientBase
   def initialize server_proxy_class
     # The 3rd to last segment of the proxy class will be the version
     major_version = server_proxy_class.name.split("::")[-3]
-    transport = Thrift::HTTPClientTransport.new("http://localhost:9292/#{major_version}/accounts")
+    url = "http://localhost:9292/#{major_version}/accounts"
+    transport = Thrift::HTTPClientTransport.new(url)
     @client = server_proxy_class.new(Thrift::BinaryProtocol.new(transport))
+    puts "using server at #{url}..."
   end
 
   def run()

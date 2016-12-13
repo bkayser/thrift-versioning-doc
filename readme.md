@@ -87,6 +87,7 @@ older versions of the stubs.
 * Changing a method return type from void to anything else
 * Removing an exception from a method signature
 * Removing a field from a struct
+* Renaming a field in a struct
 * Renaming a struct
 * Adding an argument to a method with or without a default value
 * Removing an argument from a method
@@ -142,7 +143,7 @@ First install the thrift binaries using your platform installer (yum, brew, etc)
 Then install your gems:
     cd examples
     gem install bundler
-    bundle install
+    bundle
 
 Next generate the service stubs:
 
@@ -151,7 +152,7 @@ Next generate the service stubs:
 Start up the server.  This instantiates server implementations of the
 1.1.0 and 2.0.0 interfaces.
 
-    rackup
+    bundle exec rackup
 
 Now run each version of the client.
 

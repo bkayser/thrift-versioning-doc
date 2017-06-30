@@ -106,6 +106,7 @@ the stubs will get exceptions on their method invocations.
 * Removing or renaming a method
 * Changing the type of an argument in a method
 * Changing the declared type of a return value, or changing it to void
+* Adding a value to an enum or changing the integer keys of an enum
 * Adding an exception to a method (with a non-void return type)
 
 Adding an exception to any method should really be considered to break
